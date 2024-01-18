@@ -1,5 +1,5 @@
 class CountersController < ApplicationController
-  before_action :set_counter, only: %i[ show edit update destroy ]
+  before_action :set_counter, only: %i[ show edit update destroy update_count ]
 
   # GET /counters or /counters.json
   def index
@@ -54,6 +54,14 @@ class CountersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to counters_url, notice: "Counter was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def update_count
+    if @counter.update(count: params[:count])
+      render json: { status: 'success' }
+    else
+      render json: { status: 'error', message: @counter.errors.full_messages }
     end
   end
 

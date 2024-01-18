@@ -1,8 +1,10 @@
 %p{:style => "color: green"}= notice
 %h1 Counters
 #counters
-  - @counters.each do |counter|
-    = render counter
-    %p
-      = link_to "Show this counter", counter
+  - @counters.each_with_index do |counter, index|
+    %h3= "Counter ##{index + 1}"
+    %span{id: "counter-value-#{counter.id}"}= counter.count
+    %button{id: "increase-button-#{counter.id}", class: "increase-button"} Increase
+    %button{id: "decrease-button-#{counter.id}", class: "decrease-button"} Decrease
+    %p= link_to "Show this counter", counter
 = link_to "New counter", new_counter_path
